@@ -1,15 +1,21 @@
 ﻿#-*- coding: utf-8 -*-
 
-'BaiduBOT test file'
+#BaiduBOT test file
 
 __author__ = 'EagLB'
 
+import os
+from dotenv import load_dotenv
 from urllib import request
 import json
 import sys
 import random
 
-#API_KEY and SEVRET_KEY are authorized from Baidu.
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+API_KEY = os.getenv("API_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+print(API_KEY, SECRET_KEY)
 
 {
 #def show_choose_confidence(action_list):
@@ -32,7 +38,7 @@ import random
 }#show_choose_confidence
 
 def get_access_token():
-    #host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=API_KEY&client_secret=SECRET_KEY'
+    host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}'.format(API_KEY, SECRET_KEY)
     req = request.Request(host)
     req.add_header('Content-Type', 'application/json; charset=UTF-8')
     with request.urlopen(req) as response:
